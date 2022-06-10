@@ -121,11 +121,12 @@
        }
       }
       .create-date{
-        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         color: $color-4;
-        top: 65%;
-        left: 25%;
-
+        margin-top: 15px;
+        
       }
       
       h5 {

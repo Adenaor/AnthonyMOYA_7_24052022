@@ -20,43 +20,27 @@ exports.createPost = (req, res) => {
 
 //Modification d'un post
 exports.updatePost = (req, res) => {
-  const postObject = req.file
-    ? {
-        ...JSON.parse(req.body.sauce),
-        imageUrl: `${req.protocol}://${req.get("host")}/images/post/${
-          req.file.filename
-        }`,
-      }
-    : { ...req.body };
+  const updateMessage = {
+    message: req.body.message,
+  };
 
-  Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
-    .then(() => {
-      if ((post.userId = req.auth.userId || isAdmin === true))
-        return res.status(200).json({ message: "Post modifié" });
-    })
-    .catch((err) => res.status(404).json({ err }));
+  Post.findByIdAndUpdate(
+    req.params.id,
+    { $set: updateMessage },
+    { new: true },
+    (err) => {
+      if (!err) res.send("Post modifié");
+      else console.log(err);
+    }
+  );
 };
+
 //Suppression d'un post
 exports.deletePost = (req, res) => {
-  Post.findOne({ _id: req.params.id })
-    .then((post) => {
-      if (!post) {
-        return res.status(404).json({ error: "Post non trouvé" });
-      }
-      if (post.userId !== req.auth.userId || isAdmin === false) {
-        return res.status(401).json({ error: "Requête non autorisée" });
-      }
-      const filename = post.imageUrl.split("/post/")[1];
-      fstat.unlink(`images/post/${filename}`, () => {
-        Post.deleteOne({ _id: req.params.id })
-          .then(() => res.status(200).json({ message: "Post supprimé" }))
-          .catch((error) => res.status(400).json({ error }));
-      });
-    })
-
-    .catch((err) => {
-      res.status(500).json({ err });
-    });
+  Post.findByIdAndRemove(req.params.id, (err) => {
+    if (!err) res.send("Post supprimé");
+    else res.send(err);
+  });
 };
 
 // Ajout d'un like et enregistrement de l'utilisateur dans [likers]

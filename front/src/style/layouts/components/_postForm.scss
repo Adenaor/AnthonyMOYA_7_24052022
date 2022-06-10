@@ -4,6 +4,7 @@
   border-radius: 20px;
   position: relative;
   background: $color-4;
+  width: 80%;
 
   i {
     font-size: 1.5rem;
@@ -44,6 +45,7 @@
   .post-form {
     position: relative;
     margin: 0 auto 0;
+    width: 80%;
 
     textarea {
       height: 62px;
@@ -81,6 +83,7 @@
             }
           }
           span {
+
             @media screen and(max-width: 632px) {
               position: absolute;
               top: 40px;
@@ -112,6 +115,7 @@
         }
       }
     }
+   
     .footer-form {
       display: flex;
       justify-content: space-between;
@@ -161,19 +165,25 @@
         color: red;
       }
       .btn-send {
+        
         .cancel {
+          cursor: pointer;
+          color: $color-3;
+          padding: 8px;
           border-radius: 20px;
           margin-right: 8px;
           background: $white;
-
+          
+      
           &:hover {
+   
             color: $color-4;
             background: $color-3;
           }
         }
         .send {
           &:hover {
-            letter-spacing: 2px;
+            color: $color-4;
           }
         }
         button {

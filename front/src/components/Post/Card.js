@@ -1,15 +1,28 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updatePost } from "../../actions/post.actions";
 import { dateParser, isEmpty } from "../Utils";
 import CardComments from "./CardComments";
+import DeleteCard from "./DeleteCard";
 import LikeButton from "./LikeButton";
 
 const Card = ({ post }) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [showComments, setShowComments] = useState(false);
+  const [textUpdate, setTextUpdate] = useState("");
+  const dispatch = useDispatch();
+
   const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
-  const [showComments, setShowComments] = useState(false);
+
+  const updateItem = () => {
+    if (textUpdate) {
+      dispatch(updatePost(post._id, textUpdate));
+      setIsUpdating(false);
+    }
+  };
 
   useEffect(() => {
     !isEmpty(usersData[0]) && setIsLoading(false);
@@ -22,6 +35,9 @@ const Card = ({ post }) => {
       ) : (
         <>
           <div className="card-left">
+            {/* <img src={!isEmpty(userData[0]) && userData.map((user) => {
+              if(user._id === post.posterId) return user.picture; else return null;
+            })} alt="avatar" /> */}
             <img src="./img/default-avatar.jpg" alt="avatar" />
           </div>
           <div className="card-right">
@@ -36,18 +52,44 @@ const Card = ({ post }) => {
               </div>
               <span>{dateParser(post.createdAt)}</span>
             </div>
-            <p>{post.message}</p>
+            {isUpdating === false && <p>{post.message}</p>}
+            {isUpdating && (
+              <div className="update-post">
+                <textarea
+                  defaultValue={post.message}
+                  onChange={(e) => setTextUpdate(e.target.value)}
+                />
+                <div className="button-container">
+                  <div className="btn" onClick={updateItem}>
+                    Valider modifications
+                  </div>
+                </div>
+              </div>
+            )}
             {post.picture && (
               <img src={post.picture} alt="post" className="card-pic" />
             )}
+            {userData._id === post.userId && (
+              <div className="button-container">
+                <div onClick={() => setIsUpdating(!isUpdating)}>
+                  <img src="./img/icons/edit.svg" alt="edit" />
+                </div>
+                <DeleteCard id={post._id} />
+              </div>
+            )}
             <div className="card-footer">
-              <div className="comment-icon">
+              <div
+                className="comment-icon"
+                onClick={() => {
+                  setShowComments(!showComments);
+                }}
+              >
                 <img src="./img/icons/message1.svg" alt="comment icon" />
                 <span>{post.comments.length}</span>
               </div>
               <LikeButton post={post} />
             </div>
-            {showComments && <CardComments />}
+            {showComments && <CardComments post={post} />}
           </div>
         </>
       )}
