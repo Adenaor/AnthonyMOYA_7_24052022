@@ -6,7 +6,6 @@ import DeleteComment from "./DeleteComment";
 
 const CardComments = ({ post }) => {
   const [text, setText] = useState("");
-  const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
 

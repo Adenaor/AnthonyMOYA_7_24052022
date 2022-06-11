@@ -15,7 +15,7 @@
   
     .connection-form {
       border: none;
-      background: $color-4;
+      background: $color-5;
       min-width: 490px;
       width: 90%;
       text-align: center;
@@ -49,7 +49,7 @@
           }
           .active-btn {
             background: $color-1;
-            color: $color-4;
+            color: $color-5;
   
             
           }
@@ -121,7 +121,7 @@
       }
   
       > div {
-        background: $color-4;
+        background: $color-5;
         border-radius: 20px;
         padding: 25px;
         margin: 20px 10px;
@@ -205,7 +205,7 @@
         }
         h5 {
           background: $color-1;
-          color: $color-4;
+          color: $color-5;
           font-family: $font-1;
           margin: 20px 0;
           padding: 12px;
@@ -273,7 +273,7 @@
             width: 2px;
           }
           &::-webkit-scrollbar-track {
-            background: $color-4;
+            background: $color-5;
           }
           &::-webkit-scrollbar-thumb {
             background: $color-1;
@@ -303,7 +303,7 @@
               text-align: left;
   
               button {
-                background: $color-4;
+                background: $color-5;
                 border-radius: 20px;
                 margin-right: 6px;
   

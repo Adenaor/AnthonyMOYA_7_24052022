@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePost } from "../../actions/post.actions";
+import { UidContext } from "../AppContext";
 import { dateParser, isEmpty } from "../Utils";
 import CardComments from "./CardComments";
 import DeleteCard from "./DeleteCard";
@@ -14,9 +15,10 @@ const Card = ({ post }) => {
   const [textUpdate, setTextUpdate] = useState("");
   const dispatch = useDispatch();
 
-  const usersData = useSelector((state) => state.usersReducer);
+  const uid = useContext(UidContext);
   const userData = useSelector((state) => state.userReducer);
-
+  const [isAuthor, setIsAuthor] = useState(false);
+  const usersData = useSelector((state) => state.usersReducer);
   const updateItem = () => {
     if (textUpdate) {
       dispatch(updatePost(post._id, textUpdate));
@@ -24,9 +26,17 @@ const Card = ({ post }) => {
     }
   };
 
+  const checkAuthor = () => {
+    if (userData.isAdmin || userData._id === post.userId) {
+      setIsAuthor(true);
+    }
+  };
+
   useEffect(() => {
     !isEmpty(usersData[0]) && setIsLoading(false);
-  }, [usersData]);
+
+    checkAuthor();
+  }, [usersData.isAdmin, userData._id]);
 
   return (
     <li className="card-container" key={post._id}>
@@ -69,7 +79,7 @@ const Card = ({ post }) => {
             {post.picture && (
               <img src={post.picture} alt="post" className="card-pic" />
             )}
-            {userData._id === post.userId && (
+            {isAuthor && (
               <div className="button-container">
                 <div onClick={() => setIsUpdating(!isUpdating)}>
                   <img src="./img/icons/edit.svg" alt="edit" />

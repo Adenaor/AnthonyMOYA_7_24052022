@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import Log from "../components/Log";
-import { UidContext } from "../components/AppContext";
+import { AdminContext, UidContext } from "../components/AppContext";
 import Home from "./Home";
 
 const LogPage = () => {
   const uid = useContext(UidContext);
+  const admin = useContext(AdminContext);
 
   return (
     <div>

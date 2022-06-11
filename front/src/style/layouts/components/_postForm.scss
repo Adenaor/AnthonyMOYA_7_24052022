@@ -3,7 +3,7 @@
   padding: 16px 40px;
   border-radius: 20px;
   position: relative;
-  background: $color-4;
+  background: $color-5;
   width: 80%;
 
   i {
@@ -177,13 +177,13 @@
       
           &:hover {
    
-            color: $color-4;
+            color: $white;
             background: $color-3;
           }
         }
         .send {
           &:hover {
-            color: $color-4;
+            color: $color-5;
           }
         }
         button {

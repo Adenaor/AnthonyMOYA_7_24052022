@@ -1,16 +1,17 @@
 import { useContext, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteComment } from "../../actions/post.actions";
 import { UidContext } from "../AppContext";
 
 const DeleteComment = ({ comment, postId }) => {
   const [isAuthor, setIsAuthor] = useState(false);
   const dispatch = useDispatch();
+  const userData = useSelector((state) => state.userReducer);
   const uid = useContext(UidContext);
 
   useEffect(() => {
     const checkAuthor = () => {
-      if (uid === comment.commenterId) {
+      if (uid === comment.commenterId || userData.isAdmin) {
         setIsAuthor(true);
       }
     };

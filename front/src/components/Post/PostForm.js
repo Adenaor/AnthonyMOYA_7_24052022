@@ -17,7 +17,7 @@ const PostForm = () => {
   };
   const handlePost = async () => {
     if (message || picture) {
-      await dispatch(addPost(userData._id, message, picture));
+      await dispatch(addPost(userData._id, message, picture, file));
       dispatch(getPosts());
       cancelPost();
     }

@@ -8,6 +8,7 @@ const Thread = () => {
   const [loadPost, setLoadPost] = useState(true);
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.postReducer);
+  const userData = useSelector((state) => state.userReducer);
 
   useEffect(() => {
     if (loadPost) {
@@ -21,7 +22,7 @@ const Thread = () => {
       <ul>
         {!isEmpty(posts[0]) &&
           posts.map((post) => {
-            return <Card post={post} key={post._id} />;
+            return <Card post={post} key={post._id} userData={userData} />;
           })}
       </ul>
     </div>
