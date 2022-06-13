@@ -25,12 +25,12 @@ export const getPosts = () => {
   };
 };
 
-export const addPost = (userId, message, picture) => {
+export const addPost = (data) => {
   return (dispatch) => {
     return axios({
       method: "post",
       url: `${process.env.REACT_APP_API_URL}api/post`,
-      data: { userId, message, picture },
+      data: data,
     })
       .then(() => console.log("Post créé"))
       .catch((err) => console.log(err));

@@ -3,10 +3,10 @@ const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
 require("dotenv").config({ path: "./config/.env" });
 require("./config/db");
-const path = require("path");
 const userRoutes = require("./routes/user.routes");
 const postRoutes = require("./routes/post.routes");
 const { checkUser, requireAuth } = require("./middleware/auth.middleware");
+const path = require("path");
 
 const app = express();
 
@@ -28,7 +28,14 @@ app.use((req, res, next) => {
 //middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(helmet());
+app.use(
+  helmet({
+    crossOriginResourcePolicy: false,
+  })
+);
+
+// upload image
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 // jwt
 app.get("*", checkUser);
@@ -39,6 +46,5 @@ app.get("/jwtid", requireAuth, (req, res) => {
 // Routes
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
-app.use("/images", express.static(path.join(__dirname, "images")));
 
 module.exports = app;

@@ -1,8 +1,7 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePost } from "../../actions/post.actions";
-import { UidContext } from "../AppContext";
 import { dateParser, isEmpty } from "../Utils";
 import CardComments from "./CardComments";
 import DeleteCard from "./DeleteCard";
@@ -12,13 +11,13 @@ const Card = ({ post }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isUpdating, setIsUpdating] = useState(false);
   const [showComments, setShowComments] = useState(false);
+  const [isAuthor, setIsAuthor] = useState(false);
   const [textUpdate, setTextUpdate] = useState("");
   const dispatch = useDispatch();
 
-  const uid = useContext(UidContext);
   const userData = useSelector((state) => state.userReducer);
-  const [isAuthor, setIsAuthor] = useState(false);
   const usersData = useSelector((state) => state.usersReducer);
+
   const updateItem = () => {
     if (textUpdate) {
       dispatch(updatePost(post._id, textUpdate));
@@ -31,12 +30,10 @@ const Card = ({ post }) => {
       setIsAuthor(true);
     }
   };
-
   useEffect(() => {
     !isEmpty(usersData[0]) && setIsLoading(false);
-
     checkAuthor();
-  }, [usersData.isAdmin, userData._id]);
+  }, [userData.isAdmin, userData._id]);
 
   return (
     <li className="card-container" key={post._id}>
@@ -45,10 +42,16 @@ const Card = ({ post }) => {
       ) : (
         <>
           <div className="card-left">
-            {/* <img src={!isEmpty(userData[0]) && userData.map((user) => {
-              if(user._id === post.posterId) return user.picture; else return null;
-            })} alt="avatar" /> */}
-            <img src="./img/default-avatar.jpg" alt="avatar" />
+            <img
+              src={
+                !isEmpty(userData[0])
+                  ? userData.map((user) => {
+                      return user.imageUrl;
+                    })
+                  : "./img/default-avatar.jpg"
+              }
+              alt="avatar"
+            />
           </div>
           <div className="card-right">
             <div className="card-header">

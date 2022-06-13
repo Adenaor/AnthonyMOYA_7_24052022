@@ -13,11 +13,18 @@ const PostForm = () => {
 
   const handlePicture = (e) => {
     setPicture(URL.createObjectURL(e.target.files[0]));
+    console.log(e.target.files[0]);
     setFile(e.target.files[0]);
   };
   const handlePost = async () => {
     if (message || picture) {
-      await dispatch(addPost(userData._id, message, picture, file));
+      const data = new FormData();
+      data.append("userId", userData._id);
+      data.append("message", message);
+      if (file) data.append("file", file);
+      console.log(data);
+
+      await dispatch(addPost(data));
       dispatch(getPosts());
       cancelPost();
     }
@@ -40,7 +47,7 @@ const PostForm = () => {
       ) : (
         <>
           <div className="user-info">
-            <img src="./img/default-avatar.jpg" alt="avatar" />
+            <img src={userData.imageUrl} alt="avatar" />
           </div>
           <div className="post-form">
             <textarea
@@ -54,7 +61,7 @@ const PostForm = () => {
             {message || picture ? (
               <li className="card-container">
                 <div className="card-left">
-                  <img src="./img/default-avatar.jpg" alt="avatar" />
+                  <img src={userData.imageUrl} alt="avatar" />
                 </div>
                 <div className="card-right">
                   <div className="card-header">
@@ -75,7 +82,7 @@ const PostForm = () => {
                   type="file"
                   id="file-upload"
                   name="file"
-                  accept=".jpg, .png, .jpeg, .gif"
+                  encType=" multipart/form-data "
                   onChange={(e) => handlePicture(e)}
                 />
               </div>

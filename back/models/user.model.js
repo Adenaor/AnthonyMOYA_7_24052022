@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema(
     },
     imageUrl: {
       type: String,
-      default: "./images/default/default-avatar.jpg",
+      default: "./img/default-avatar.jpg",
     },
     bio: {
       type: String,

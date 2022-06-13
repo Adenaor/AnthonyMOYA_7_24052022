@@ -26,7 +26,7 @@ const Profil = () => {
           <div className="update-container">
             <div className="left-part">
               <h3>Photo de profil</h3>
-              <img src="./img/default-avatar.jpg" alt="user" />
+              <img src={userData.imageUrl} alt="user" />
               <UploadImg />
             </div>
             <div className="right-part">

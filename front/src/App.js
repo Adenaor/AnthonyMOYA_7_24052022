@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Routes from "./components/Routes";
-import { AdminContext, UidContext } from "./components/AppContext";
+import { UidContext } from "./components/AppContext";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { getUser } from "./actions/user.actions";
 
 const App = () => {
-  const [admin, setAdmin] = useState();
   const [uid, setUid] = useState(null);
   const dispatch = useDispatch();
 
@@ -32,9 +31,7 @@ const App = () => {
 
   return (
     <UidContext.Provider value={uid}>
-      <AdminContext.Provider value={admin}>
-        <Routes />
-      </AdminContext.Provider>
+      <Routes />
     </UidContext.Provider>
   );
 };

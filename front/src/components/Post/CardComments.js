@@ -32,10 +32,17 @@ const CardComments = ({ post }) => {
             key={comment._id}
           >
             <div className="left-part">
-              {/* <img src={!isEmpty(userData[0]) && userData.map((user) => {
-              if(user._id === comment.commenterId) return user.picture; else return null;
-            })} alt="avatar" /> */}
-              <img src="./img/default-avatar.jpg" alt="avatar" />
+              <img
+                src={
+                  !isEmpty(userData[0])
+                    ? userData.map((user) => {
+                        if (user._id === comment.commenterId)
+                          return user.imageUrl;
+                      })
+                    : "./img/default-avatar.jpg"
+                }
+                alt="avatar"
+              />
             </div>
             <div className="right-part">
               <div className="comment-header">

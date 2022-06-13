@@ -17,7 +17,23 @@ export const getUser = (uid) => {
   };
 };
 
-export const uploadPicture = (data, id) => {};
+export const uploadPicture = (data, id) => {
+  return (dispatch) => {
+    return axios({
+      method: "put",
+      url: `${process.env.REACT_APP_API_URL}api/user/${id}`,
+      data: data,
+    })
+      .then((res) => {
+        return axios
+          .get(`${process.env.REACT_APP_API_URL}api/user/${id}`)
+          .then((res) =>
+            dispatch({ type: UPLOAD_PICTURE, payload: res.data.imageUrl })
+          );
+      })
+      .catch((err) => console.log(err));
+  };
+};
 
 export const updateBio = (uid, bio) => {
   return (dispatch) => {

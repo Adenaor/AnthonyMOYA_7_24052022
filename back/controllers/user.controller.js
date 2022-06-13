@@ -24,8 +24,8 @@ exports.userInfo = (req, res) => {
 exports.updateUser = (req, res) => {
   const userObject = req.file
     ? {
-        ...JSON.parse(req.body.user),
-        imageUrl: `${req.protocol}://${req.get("host")}/images/user/${
+        ...req.body.user,
+        imageUrl: `${req.protocol}://${req.get("host")}/images/${
           req.file.filename
         }`,
       }

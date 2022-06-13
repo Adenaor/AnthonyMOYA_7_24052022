@@ -1,5 +1,6 @@
 const Post = require("../models/post.model");
 const User = require("../models/user.model");
+const fs = require("fs");
 
 // CRUD post
 // récupération des posts
@@ -10,12 +11,27 @@ exports.getPost = (req, res) => {
     .catch((err) => res.status(400).json({ err }));
 };
 // Création d'un post
-exports.createPost = (req, res) => {
-  const post = new Post({ ...req.body });
-  post
-    .save()
-    .then(() => res.status(201).json({ message: "Post créé" }))
-    .catch((err) => res.status(400).json({ err }));
+
+exports.createPost = async (req, res) => {
+  let picture = "";
+
+  if (req.file !== undefined)
+    picture = `${req.protocol}://${req.get("host")}/images/${
+      req.file.filename
+    }`;
+
+  const newPost = new Post({
+    userId: req.body.userId,
+    message: req.body.message,
+    picture: picture,
+  });
+
+  try {
+    const post = await newPost.save();
+    return res.status(201).json(post);
+  } catch (err) {
+    return res.status(400).send(err);
+  }
 };
 
 //Modification d'un post
@@ -37,12 +53,21 @@ exports.updatePost = (req, res) => {
 
 //Suppression d'un post
 exports.deletePost = (req, res) => {
-  Post.findByIdAndRemove(req.params.id, (err) => {
-    if (!err) res.send("Post supprimé");
-    else res.send(err);
-  });
+  Post.findOne({ _id: req.params.id })
+    .then((post) => {
+      if (!post) {
+        return res.status(404).json({ error: "Post non trouvé" });
+      }
+      const filename = post.picture.split("/images/")[1];
+      console.log(filename);
+      fs.unlink(`images/${filename}`, () => {
+        Post.deleteOne({ _id: req.params.id })
+          .then(() => res.status(200).send("Post supprimé"))
+          .catch((err) => res.status(400).send(err));
+      });
+    })
+    .catch((err) => res.status(500).send({ err }));
 };
-
 // Ajout d'un like et enregistrement de l'utilisateur dans [likers]
 exports.likePost = (req, res) => {
   try {
