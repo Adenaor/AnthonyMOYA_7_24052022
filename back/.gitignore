@@ -1,4 +1,3 @@
 /node_modules
-/images/user
-/images/post
+/images
 /config/.env
