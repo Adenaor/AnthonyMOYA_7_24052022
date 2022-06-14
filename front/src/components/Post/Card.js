@@ -11,8 +11,8 @@ const Card = ({ post }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isUpdating, setIsUpdating] = useState(false);
   const [showComments, setShowComments] = useState(false);
-  const [isAuthor, setIsAuthor] = useState(false);
   const [textUpdate, setTextUpdate] = useState("");
+  const [isAuthor, setIsAuthor] = useState(false);
   const dispatch = useDispatch();
 
   const userData = useSelector((state) => state.userReducer);
@@ -33,7 +33,7 @@ const Card = ({ post }) => {
   useEffect(() => {
     !isEmpty(usersData[0]) && setIsLoading(false);
     checkAuthor();
-  }, [userData.isAdmin, userData._id]);
+  }, [usersData, userData.isAdmin, userData._id]);
 
   return (
     <li className="card-container" key={post._id}>
@@ -42,16 +42,7 @@ const Card = ({ post }) => {
       ) : (
         <>
           <div className="card-left">
-            <img
-              src={
-                !isEmpty(userData[0])
-                  ? userData.map((user) => {
-                      return user.imageUrl;
-                    })
-                  : "./img/default-avatar.jpg"
-              }
-              alt="avatar"
-            />
+            <img src={userData.imageUrl} alt="avatar" />
           </div>
           <div className="card-right">
             <div className="card-header">
