@@ -52,7 +52,7 @@ const PostForm = () => {
             <textarea
               name="message"
               id="message"
-              placeholder={"Quoi de neuf, " + userData.pseudo + "?"}
+              placeholder={"Quoi de neuf, " + userData.pseudo + " ?"}
               onChange={(e) => setMessage(e.target.value)}
               value={message}
             />
