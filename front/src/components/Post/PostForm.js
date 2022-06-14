@@ -48,6 +48,7 @@ const PostForm = () => {
             <img src={userData.imageUrl} alt="avatar" />
           </div>
           <div className="post-form">
+            <label htmlFor="message">message : </label>
             <textarea
               name="message"
               id="message"
@@ -76,13 +77,14 @@ const PostForm = () => {
             <div className="footer-form">
               <div className="icon">
                 <img src="./img/icons/picture.svg" alt="pic-acces" />
+                <label htmlFor="file-upload">image </label>
                 <input
                   type="file"
                   id="file-upload"
                   name="file"
                   encType=" multipart/form-data "
                   onChange={(e) => handlePicture(e)}
-                />
+                />{" "}
               </div>
               <div className="btn-send">
                 {message || picture ? (

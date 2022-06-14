@@ -6,6 +6,10 @@
   background: $color-5;
   width: 80%;
 
+  label {
+ display: none;   
+  }
+
   i {
     font-size: 1.5rem;
     margin: 20px 0;

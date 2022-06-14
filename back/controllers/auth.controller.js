@@ -48,7 +48,7 @@ exports.logIn = (req, res) => {
           return res.status(401).json({ message: "Mot de passe incorrect" });
         }
         // création d'un token pour l'utilisateur
-        res.cookie("jwt", token, { httpOnly: true, secrure: true, maxAge });
+        res.cookie("jwt", token, { httpOnly: true, secure: true, maxAge });
         res.status(200).json({
           userId: user._id,
           message: " Connexion réussie",
