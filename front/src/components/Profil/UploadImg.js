@@ -10,9 +10,9 @@ const UploadImg = () => {
   const handlePicture = (e) => {
     e.preventDefault();
     const data = new FormData();
-    data.append("name", userData.pseudo);
+    data.append("pseudo", userData.pseudo);
     data.append("id", userData._id);
-    data.append("file", file);
+    data.append("name", file);
 
     dispatch(uploadPicture(data, userData._id));
   };
@@ -30,7 +30,7 @@ const UploadImg = () => {
           encType=" multipart/form-data "
           type="file"
           id="file"
-          name="file"
+          name="name"
           accept=".jpg,.jpeg,.png"
           onChange={(e) => {
             setFile(e.target.files[0]);

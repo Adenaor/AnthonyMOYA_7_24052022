@@ -13,7 +13,6 @@ router.get("/logout", authCtrl.logOut);
 router.get("/", userCtrl.getAllUsers);
 router.get("/:id", userCtrl.userInfo);
 router.put("/:id", multer, userCtrl.updateUser);
-router.delete("/:id", userCtrl.deleteUser);
 
 // upload image
 

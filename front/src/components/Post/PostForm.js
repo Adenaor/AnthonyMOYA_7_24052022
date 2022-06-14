@@ -13,7 +13,6 @@ const PostForm = () => {
 
   const handlePicture = (e) => {
     setPicture(URL.createObjectURL(e.target.files[0]));
-    console.log(e.target.files[0]);
     setFile(e.target.files[0]);
   };
   const handlePost = async () => {
@@ -22,7 +21,6 @@ const PostForm = () => {
       data.append("userId", userData._id);
       data.append("message", message);
       if (file) data.append("file", file);
-      console.log(data);
 
       await dispatch(addPost(data));
       dispatch(getPosts());

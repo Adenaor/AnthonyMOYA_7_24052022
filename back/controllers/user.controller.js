@@ -36,27 +36,3 @@ exports.updateUser = (req, res) => {
     })
     .catch((err) => res.status(404).json({ err }));
 };
-
-// Suppression d'un utilisateur
-
-exports.deleteUser = (req, res) => {
-  Post.findOne({ _id: req.params.id })
-    .then((user) => {
-      if (!user) {
-        return res.status(404).json({ error: "Post non trouvé" });
-      }
-      if (user.userId !== req.auth.userId || isAdmin === false) {
-        return res.status(401).json({ error: "Requête non autorisée" });
-      }
-      const filename = user.imageUrl.split("/user/")[1];
-      fs.unlink(`images/user/${filename}`, () => {
-        User.deleteOne({ _id: req.params.id })
-          .then(() => {
-            res.status(200).json({ message: "Utilisateur supprimé" });
-            res.clearCookie("jwt");
-          })
-          .catch((err) => res.status(400).json({ err }));
-      });
-    })
-    .catch((err) => res.status(500).json({ err }));
-};

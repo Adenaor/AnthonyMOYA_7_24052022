@@ -7,6 +7,7 @@ import DeleteComment from "./DeleteComment";
 const CardComments = ({ post }) => {
   const [text, setText] = useState("");
   const userData = useSelector((state) => state.userReducer);
+  const usersData = useSelector((state) => state.usersReducer);
   const dispatch = useDispatch();
 
   const handleComment = (e) => {
@@ -32,7 +33,19 @@ const CardComments = ({ post }) => {
             key={comment._id}
           >
             <div className="left-part">
-              <img src={userData.imageUrl} alt="avatar" />
+              <img
+                src={
+                  !isEmpty(usersData[0]) &&
+                  usersData
+                    .map((user) => {
+                      if (user._id === comment.commenterId)
+                        return user.imageUrl;
+                      else return null;
+                    })
+                    .join("")
+                }
+                alt="avatar"
+              />
             </div>
             <div className="right-part">
               <div className="comment-header">

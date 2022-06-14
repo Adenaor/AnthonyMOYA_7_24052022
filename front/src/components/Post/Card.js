@@ -42,7 +42,18 @@ const Card = ({ post }) => {
       ) : (
         <>
           <div className="card-left">
-            <img src={userData.imageUrl} alt="avatar" />
+            <img
+              src={
+                !isEmpty(usersData[0]) &&
+                usersData
+                  .map((user) => {
+                    if (user._id === post.userId) return user.imageUrl;
+                    else return null;
+                  })
+                  .join("")
+              }
+              alt="avatar"
+            />
           </div>
           <div className="card-right">
             <div className="card-header">

@@ -59,7 +59,6 @@ exports.deletePost = (req, res) => {
         return res.status(404).json({ error: "Post non trouvé" });
       }
       const filename = post.picture.split("/images/")[1];
-      console.log(filename);
       fs.unlink(`images/${filename}`, () => {
         Post.deleteOne({ _id: req.params.id })
           .then(() => res.status(200).send("Post supprimé"))
