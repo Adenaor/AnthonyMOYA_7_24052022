@@ -1,4 +1,7 @@
 .profil-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 80px auto 0;
   max-width: 1200px;
   min-width: 350px;
@@ -6,6 +9,23 @@
   .icons {
     top: 55px;
   }
+
+  .delete-btn{
+    margin: 30px auto 0;
+    display: flex;
+    background-color: $color-1;
+    color: $white;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    transition: 0.2s ease-in-out;
+    cur
+
+      &:hover{
+        letter-spacing: 1px;
+      }
+    }
+  
 
 
   h1 {
@@ -119,6 +139,7 @@
         color: $color-4;
        &:hover{
          color: $white;
+         border: 2px solid $color-5
        }
       }
       .create-date{
@@ -131,22 +152,7 @@
         
       }
       
-      h5 {
-        background: $color-1;
-        color: $color-5;
-        font-family: $font-1;
-        margin: 20px 0;
-        padding: 12px;
-        font-size: 1.1rem;
-        border-radius: 20px;
-        transition: 0.2s;
-        cursor: pointer;
-
-        &:hover {
-          filter: brightness(110%);
-          transform: translateX(2px);
-        }
-      }
+  
     }
   }
  }

@@ -67,6 +67,7 @@ exports.deletePost = (req, res) => {
     })
     .catch((err) => res.status(500).send({ err }));
 };
+
 // Ajout d'un like et enregistrement de l'utilisateur dans [likers]
 exports.likePost = (req, res) => {
   try {

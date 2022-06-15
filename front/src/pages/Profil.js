@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateBio } from "../actions/user.actions";
 import { UidContext } from "../components/AppContext";
+import DeleteUser from "../components/Profil/DeleteUser";
 import UploadImg from "../components/Profil/UploadImg";
 import { dateParser } from "../components/Utils";
 import LogPage from "./LogPage";
@@ -56,6 +57,7 @@ const Profil = () => {
               </div>
             </div>
           </div>
+          <DeleteUser uid={uid} />
         </div>
       ) : (
         <LogPage />

@@ -36,3 +36,19 @@ exports.updateUser = (req, res) => {
     })
     .catch((err) => res.status(404).json({ err }));
 };
+
+exports.deleteUser = (req, res) => {
+  User.findOne({ _id: req.params.id })
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ error: "Utilisateur non trouvé" });
+      }
+      const filename = user.imageUrl.split("/images/")[1];
+      fs.unlink(`images/${filename}`, () => {
+        User.deleteOne({ _id: req.params.id })
+          .then(() => res.status(200).send("Utilisateur supprimé"))
+          .catch((err) => res.status(400).send(err));
+      });
+    })
+    .catch((err) => res.status(500).send({ err }));
+};
