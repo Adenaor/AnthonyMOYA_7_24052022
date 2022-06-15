@@ -7,14 +7,15 @@ const UploadImg = () => {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userReducer);
 
-  const handlePicture = (e) => {
+  const handlePicture = async (e) => {
     e.preventDefault();
     const data = new FormData();
     data.append("pseudo", userData.pseudo);
     data.append("id", userData._id);
     data.append("name", file);
 
-    dispatch(uploadPicture(data, userData._id));
+    await dispatch(uploadPicture(data, userData._id));
+    window.location.reload();
   };
 
   return (

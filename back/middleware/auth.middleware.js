@@ -30,6 +30,7 @@ exports.requireAuth = (req, res, next) => {
         console.log(err);
       } else {
         next();
+        console.log(decodedToken);
       }
     });
   } else {
