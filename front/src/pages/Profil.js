@@ -10,6 +10,7 @@ import LogPage from "./LogPage";
 const Profil = () => {
   const [bio, setBio] = useState("");
   const [updateForm, setUpdateForm] = useState(false);
+
   const userData = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
   const uid = useContext(UidContext);

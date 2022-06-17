@@ -99,7 +99,7 @@ const Card = ({ post }) => {
                   setShowComments(!showComments);
                 }}
               >
-                <img src="./img/icons/message1.svg" alt="comment icon" />
+                <img src="./img/icons/message.svg" alt="comment icon" />
                 <span>{post.comments.length}</span>
               </div>
               <LikeButton post={post} />
