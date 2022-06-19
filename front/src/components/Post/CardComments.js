@@ -50,10 +50,7 @@ const CardComments = ({ post }) => {
             <div className="right-part">
               <div className="comment-header">
                 <div className="pseudo">
-                  {!isEmpty(usersData[0]) &&
-                    usersData.map((user) => {
-                      if (user._id === comment.commenterId) return user.pseudo;
-                    })}
+                  <h3>{comment.commenterPseudo}</h3>
                 </div>
                 <span>{timeStampParser(comment.timestamp)}</span>
               </div>

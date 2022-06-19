@@ -1,8 +1,18 @@
 import axios from "axios";
 import React from "react";
 import cookie from "js-cookie";
+import { useDispatch, useSelector } from "react-redux";
+import { deletePost } from "../../actions/post.actions";
 
 const DeleteUser = ({ uid }) => {
+  const posts = useSelector((state) => state.postReducer);
+  const dispatch = useDispatch();
+
+  const findPost = posts.find((post) => post.userId === uid);
+  const findComment = posts.find((post) => post.comments);
+
+  console.log(findComment);
+
   const deleteUser = () => {
     const removeCookie = (key) => {
       if (window !== "undefined") {
@@ -10,6 +20,7 @@ const DeleteUser = ({ uid }) => {
       }
     };
 
+    dispatch(deletePost(findPost._id));
     axios({
       method: "delete",
       url: `${process.env.REACT_APP_API_URL}api/user/${uid}`,

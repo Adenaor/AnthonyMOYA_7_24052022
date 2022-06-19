@@ -48,7 +48,6 @@ const Card = ({ post }) => {
                 usersData
                   .map((user) => {
                     if (user._id === post.userId) return user.imageUrl;
-                    else return null;
                   })
                   .join("")
               }
