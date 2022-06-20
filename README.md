@@ -21,7 +21,7 @@ salariés.
 Cloner le projet ou télécharger le fichier Zip
 
 #### Back-end
-    Installer `NodeJs`
+    Installer NodeJs
     
 Se rendre avec la console dans le dossier `back`
 et installer les dépendances requises 
