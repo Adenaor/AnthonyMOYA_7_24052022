@@ -9,9 +9,6 @@ const DeleteUser = ({ uid }) => {
   const dispatch = useDispatch();
 
   const findPost = posts.find((post) => post.userId === uid);
-  const findComment = posts.find((post) => post.comments);
-
-  console.log(findComment);
 
   const deleteUser = () => {
     const removeCookie = (key) => {
