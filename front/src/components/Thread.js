@@ -8,7 +8,6 @@ const Thread = () => {
   const [loadPost, setLoadPost] = useState(true);
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.postReducer);
-  const userData = useSelector((state) => state.userReducer);
 
   useEffect(() => {
     if (loadPost) {

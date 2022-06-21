@@ -15,6 +15,7 @@ const PostForm = () => {
     setPicture(URL.createObjectURL(e.target.files[0]));
     setFile(e.target.files[0]);
   };
+
   const handlePost = async () => {
     if (message || picture) {
       const data = new FormData();
@@ -24,11 +25,11 @@ const PostForm = () => {
 
       await dispatch(addPost(data));
       dispatch(getPosts());
-      cancelPost();
+      clearPost();
     }
   };
 
-  const cancelPost = () => {
+  const clearPost = () => {
     setMessage("");
     setPicture("");
     setFile("");
@@ -84,11 +85,11 @@ const PostForm = () => {
                   name="file"
                   encType=" multipart/form-data "
                   onChange={(e) => handlePicture(e)}
-                />{" "}
+                />
               </div>
               <div className="btn-send">
                 {message || picture ? (
-                  <button className="cancel" onClick={cancelPost}>
+                  <button className="cancel" onClick={clearPost}>
                     Annuler message
                   </button>
                 ) : null}

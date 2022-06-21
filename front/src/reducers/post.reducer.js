@@ -13,6 +13,7 @@ export default function postReducer(state = initialState, action) {
   switch (action.type) {
     case GET_POSTS:
       return action.payload;
+
     case LIKE_POST:
       return state.map((post) => {
         if (post._id === action.payload.postId) {
@@ -23,6 +24,7 @@ export default function postReducer(state = initialState, action) {
         }
         return post;
       });
+
     case UNLIKE_POST:
       return state.map((post) => {
         if (post._id === action.payload.postId)
@@ -32,6 +34,7 @@ export default function postReducer(state = initialState, action) {
           };
         return post;
       });
+
     case UPDATE_POST:
       return state.map((post) => {
         if (post._id === action.payload.postId) {
@@ -41,8 +44,10 @@ export default function postReducer(state = initialState, action) {
           };
         } else return post;
       });
+
     case DELETE_POST:
       return state.filter((post) => post._id !== action.payload.postId);
+
     case DELETE_COMMENT:
       return state.map((post) => {
         if (post._id === action.payload.postId) {
