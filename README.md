@@ -47,9 +47,5 @@ Lancer le serveur
 Le serveur doit se lancer sur le port 3000
 
 
-##### Connexion profil Administrateur
-* email : admin@admin.fr
-* mdr : Admin47
-
 
 
