@@ -38,7 +38,8 @@ Le serveur doit se lancer sur le port 3001
 #### Front-end
 
 Se rendre avec la console dans le dossier `front` et executer
-    npm install
+
+        npm install
 
 Lancer le serveur
 
