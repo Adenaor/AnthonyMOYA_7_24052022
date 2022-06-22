@@ -2,13 +2,28 @@ import axios from "axios";
 import React from "react";
 import cookie from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
-import { deletePost } from "../../actions/post.actions";
+import { deleteComment, deletePost } from "../../actions/post.actions";
+import { isEmpty } from "../Utils";
 
 const DeleteUser = ({ uid }) => {
   const posts = useSelector((state) => state.postReducer);
   const dispatch = useDispatch();
 
   const findPost = posts.filter((post) => post.userId === uid);
+  const allComments = posts.map((post) => post.comments);
+
+  const findPostComment = () => {
+    for (let i = 0; i < allComments.length; i++) {
+      if (!isEmpty(allComments[i])) {
+        for (let j = 0; j < allComments[i].length; j++) {
+          console.log("step1");
+          if (uid === allComments[i][j].commenterId) {
+            dispatch(deleteComment(posts[i]._id, allComments[i][j]._id));
+          }
+        }
+      }
+    }
+  };
 
   const deleteUser = () => {
     const removeCookie = (key) => {
@@ -17,16 +32,17 @@ const DeleteUser = ({ uid }) => {
       }
     };
 
-    findPost.map((post) => dispatch(deletePost(post._id)));
+    findPostComment();
+    // findPost.map((post) => dispatch(deletePost(post._id)));
 
-    axios({
-      method: "delete",
-      url: `${process.env.REACT_APP_API_URL}api/user/${uid}`,
-    })
-      .then(() => removeCookie("jwt"))
-      .catch((err) => console.log(err));
+    // axios({
+    //   method: "delete",
+    //   url: `${process.env.REACT_APP_API_URL}api/user/${uid}`,
+    // })
+    //   .then(() => removeCookie("jwt"))
+    //   .catch((err) => console.log(err));
 
-    window.location = "/";
+    // window.location = "/";
   };
 
   return (
