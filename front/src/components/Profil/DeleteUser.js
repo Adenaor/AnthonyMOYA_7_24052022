@@ -16,7 +16,6 @@ const DeleteUser = ({ uid }) => {
     for (let i = 0; i < allComments.length; i++) {
       if (!isEmpty(allComments[i])) {
         for (let j = 0; j < allComments[i].length; j++) {
-          console.log("step1");
           if (uid === allComments[i][j].commenterId) {
             dispatch(deleteComment(posts[i]._id, allComments[i][j]._id));
           }
@@ -33,16 +32,17 @@ const DeleteUser = ({ uid }) => {
     };
 
     findPostComment();
-    // findPost.map((post) => dispatch(deletePost(post._id)));
 
-    // axios({
-    //   method: "delete",
-    //   url: `${process.env.REACT_APP_API_URL}api/user/${uid}`,
-    // })
-    //   .then(() => removeCookie("jwt"))
-    //   .catch((err) => console.log(err));
+    findPost.map((post) => dispatch(deletePost(post._id)));
 
-    // window.location = "/";
+    axios({
+      method: "delete",
+      url: `${process.env.REACT_APP_API_URL}api/user/${uid}`,
+    })
+      .then(() => removeCookie("jwt"))
+      .catch((err) => console.log(err));
+
+    window.location = "/";
   };
 
   return (
