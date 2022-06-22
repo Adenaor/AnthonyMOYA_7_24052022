@@ -8,7 +8,7 @@ const DeleteUser = ({ uid }) => {
   const posts = useSelector((state) => state.postReducer);
   const dispatch = useDispatch();
 
-  const findPost = posts.find((post) => post.userId === uid);
+  const findPost = posts.filter((post) => post.userId === uid);
 
   const deleteUser = () => {
     const removeCookie = (key) => {
@@ -17,7 +17,8 @@ const DeleteUser = ({ uid }) => {
       }
     };
 
-    dispatch(deletePost(findPost._id));
+    findPost.map((post) => dispatch(deletePost(post._id)));
+
     axios({
       method: "delete",
       url: `${process.env.REACT_APP_API_URL}api/user/${uid}`,

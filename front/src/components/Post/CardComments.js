@@ -53,8 +53,11 @@ const CardComments = ({ post }) => {
                   <h3>
                     {!isEmpty(usersData[0]) &&
                       usersData.map((user) => {
-                        if (user._id === comment.commenterId)
+                        if (user._id === comment.commenterId) {
                           return user.pseudo;
+                        } else {
+                          return null;
+                        }
                       })}
                   </h3>
                 </div>
