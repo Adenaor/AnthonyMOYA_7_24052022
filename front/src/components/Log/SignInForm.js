@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import axios from "axios";
 
 const SignInForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const selectedEmail = useRef();
+  const selectedPassword = useRef();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -32,7 +34,8 @@ const SignInForm = () => {
         type="text"
         name="email"
         id="email"
-        onChange={(e) => setEmail(e.target.value)}
+        ref={selectedEmail}
+        onChange={() => setEmail(selectedEmail.current.value)}
         value={email}
       />
 
@@ -43,7 +46,8 @@ const SignInForm = () => {
         type="password"
         name="password"
         id="password"
-        onChange={(e) => setPassword(e.target.value)}
+        ref={selectedPassword}
+        onChange={() => setPassword(selectedPassword.current.value)}
         value={password}
       />
       <br />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import axios from "axios";
 import SignInForm from "./SignInForm";
 
@@ -8,6 +8,10 @@ const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [controlPassword, setControlPassword] = useState("");
+  const selectedPseudo = useRef();
+  const selectedEmail = useRef();
+  const selectedPassword = useRef();
+  const selectedControlPassword = useRef();
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -56,8 +60,9 @@ const SignUpForm = () => {
           <input
             type="text"
             name="pseudo"
+            ref={selectedPseudo}
             id="pseudo"
-            onChange={(e) => setPseudo(e.target.value)}
+            onChange={() => setPseudo(selectedPseudo.current.value)}
             value={pseudo}
           />
           <br />
@@ -67,7 +72,8 @@ const SignUpForm = () => {
             type="text"
             name="email"
             id="email"
-            onChange={(e) => setEmail(e.target.value)}
+            ref={selectedEmail}
+            onChange={() => setEmail(selectedEmail.current.value)}
             value={email}
           />
 
@@ -78,7 +84,8 @@ const SignUpForm = () => {
             type="password"
             name="password"
             id="password"
-            onChange={(e) => setPassword(e.target.value)}
+            ref={selectedPassword}
+            onChange={() => setPassword(selectedPassword.current.value)}
             value={password}
             minLength="6"
           />
@@ -89,7 +96,10 @@ const SignUpForm = () => {
             type="password"
             name="password"
             id="password-conf"
-            onChange={(e) => setControlPassword(e.target.value)}
+            ref={selectedControlPassword}
+            onChange={() =>
+              setControlPassword(selectedControlPassword.current.value)
+            }
             value={controlPassword}
           />
           <div className="pseudo error"></div>
