@@ -38,22 +38,25 @@ exports.logIn = (req, res) => {
         return res.status(401).json({ message: "Utilisateur non trouvé" });
       }
       // Comparaison des password pour validation
-      bcrypt.compare(req.body.password, user.password).then((valid) => {
-        const maxAge = 24 * 60 * 60 * 1000;
-        const token = jwt.sign({ userId: user._id }, process.env.TOKEN_KEY, {
-          expiresIn: maxAge,
-        });
+      bcrypt
+        .compare(req.body.password, user.password)
+        .then((valid) => {
+          const maxAge = 24 * 60 * 60 * 1000;
+          const token = jwt.sign({ userId: user._id }, process.env.TOKEN_KEY, {
+            expiresIn: maxAge,
+          });
 
-        if (!valid) {
-          return res.status(401).json({ message: "Mot de passe incorrect" });
-        }
-        // création d'un token pour l'utilisateur
-        res.cookie("jwt", token, { httpOnly: true, secure: true, maxAge });
-        res.status(200).json({
-          userId: user._id,
-          message: " Connexion réussie",
-        });
-      });
+          if (!valid) {
+            return res.status(401).json({ message: "Mot de passe incorrect" });
+          }
+          // création d'un token pour l'utilisateur
+          res.cookie("jwt", token, { httpOnly: true, secure: true, maxAge });
+          res.status(200).json({
+            userId: user._id,
+            message: " Connexion réussie",
+          });
+        })
+        .catch((err) => res.status(401).json(err));
     })
     .catch((err) => {
       res.status(500).send({ err });

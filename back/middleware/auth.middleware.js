@@ -30,7 +30,7 @@ exports.requireAuth = (req, res, next) => {
         console.log(err);
       } else {
         next();
-        console.log(decodedToken);
+        console.log(decodedToken.userId);
       }
     });
   } else {

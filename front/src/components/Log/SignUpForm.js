@@ -48,7 +48,7 @@ const SignUpForm = () => {
       {formSubmit ? (
         <>
           <SignInForm />
-          <span></span>
+          <br />
           <h4 className="success">
             Enregistrement réussi, veuillez vous connecter
           </h4>

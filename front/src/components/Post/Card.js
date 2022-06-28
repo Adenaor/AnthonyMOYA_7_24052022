@@ -30,6 +30,7 @@ const Card = ({ post }) => {
       setIsAuthor(true);
     }
   };
+
   useEffect(() => {
     !isEmpty(usersData[0]) && setIsLoading(false);
     checkAuthor();
