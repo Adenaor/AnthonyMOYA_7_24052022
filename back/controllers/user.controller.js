@@ -25,7 +25,7 @@ exports.updateUser = (req, res) => {
   const userObject = req.file
     ? {
         ...req.body.user,
-        imageUrl: `${req.protocol}://${req.get("host")}/images/${
+        imageUrl: `${req.protocol}://${req.get("host")}/images/users/${
           req.file.filename
         }`,
       }
@@ -43,8 +43,8 @@ exports.deleteUser = (req, res) => {
       if (!user) {
         return res.status(404).json({ error: "Utilisateur non trouvé" });
       }
-      const filename = user.imageUrl.split("/images/")[1];
-      fs.unlink(`images/${filename}`, () => {
+      const filename = user.imageUrl.split("/images/users/")[1];
+      fs.unlink(`images/users/${filename}`, () => {
         User.deleteOne({ _id: req.params.id })
           .then(() => res.status(200).send("Utilisateur supprimé"))
           .catch((err) => res.status(400).send(err));
